@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | Ayaan</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1de9b6;
+      --primary-glow: rgba(29, 233, 182, 0.35);
+      --sky: #2dd4ff;
+      --bg: #050b0f;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text: #f3f7fa;
+      --text-muted: #8aa4b2;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: #000;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background Canvas */
+    #error-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    /* Main Content */
+    .error-container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 600px;
+      padding: 40px;
+    }
+
+    .error-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+      padding: 60px 40px;
+      animation: slideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .error-code {
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--primary), var(--sky));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+      animation: glitch 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% {
+        transform: translate(0, 0);
+      }
+      92% {
+        transform: translate(-2px, 2px);
+      }
+      94% {
+        transform: translate(2px, -2px);
+      }
+      96% {
+        transform: translate(-2px, -2px);
+      }
+      98% {
+        transform: translate(2px, 2px);
+      }
+    }
+
+    .error-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .error-description {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .error-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--sky));
+      color: #000;
+      border: none;
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px var(--primary-glow);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .error-icon {
+      font-size: 4rem;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px var(--primary-glow));
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Suggestions */
+    .suggestions {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .suggestions-title {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .suggestions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .suggestion-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .suggestion-link:hover {
+      color: var(--sky);
+    }
+
+    .suggestion-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .error-card {
+        padding: 40px 24px;
+      }
+
+      .error-code {
+        font-size: 6rem;
+      }
+
+      .error-title {
+        font-size: 1.8rem;
+      }
+
+      .error-description {
+        font-size: 1rem;
+      }
+
+      .error-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Canvas -->
+  <canvas id="error-canvas"></canvas>
+
+  <!-- Main Content -->
+  <div class="error-container">
+    <div class="error-card">
+      <div class="error-icon">🔍</div>
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Page Not Found</h2>
+      <p class="error-description">
+        Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or the URL might be incorrect.
+      </p>
+      
+      <div class="error-buttons">
+        <a href="index.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Back to Home
+        </a>
+        <button onclick="history.back()" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Go Back
+        </button>
+      </div>
+
+  <script>
+    // Simple starfield background
+    const canvas = document.getElementById('error-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+      buildStars();
+    }
+    window.addEventListener('resize', resize);
+
+    let stars = [];
+    function buildStars() {
+      stars = [];
+      const n = Math.floor((W * H) / 40000);
+      for (let i = 0; i < n; i++) {
+        const r = Math.random() * 1.8 + 0.4;
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r,
+          alpha: 0.8,
+          dx: (Math.random() - 0.5) * 0.025,
+          dy: (Math.random() - 0.5) * 0.018,
+          tinted: Math.random() < 0.09,
+        });
+      }
+    }
+
+    function drawStars() {
+      stars.forEach(s => {
+        s.x += s.dx;
+        s.y += s.dy;
+        if (s.x < 0) s.x = W;
+        if (s.x > W) s.x = 0;
+        if (s.y < 0) s.y = H;
+        if (s.y > H) s.y = 0;
+        ctx.fillStyle = s.tinted ? `rgba(120,255,180,${s.alpha})` : `rgba(255,255,255,${s.alpha})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        if (s.r > 0.85) {
+          const bc = s.tinted ? '120,255,180' : '255,255,255';
+          const bloom = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 5);
+          bloom.addColorStop(0, `rgba(${bc},${s.alpha * 0.18})`);
+          bloom.addColorStop(1, `rgba(${bc},0)`);
+          ctx.fillStyle = bloom;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r * 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+    }
+
+    function animate() {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, W, H);
+      drawStars();
+      requestAnimationFrame(animate);
+    }
+
+    resize();
+    animate();
+  </script>
+</body>
+</html>

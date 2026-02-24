@@ -1,0 +1,66 @@
+{
+  "name": "Ayaan - Full-stack Developer Portfolio",
+  "short_name": "Ayaan Dev",
+  "description": "Professional portfolio of Ayaan, a full-stack developer specializing in Java , Flutter, and Python",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050b0f",
+  "theme_color": "#1de9b6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "business"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "See my latest work",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "favicon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "favicon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
