@@ -1,0 +1,14 @@
+# robots.txt for Ayaan Portfolio
+# Allow all search engines to crawl
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ayaan-portfolio-sigma.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 0
+
+# Disallow specific paths (if any)
+# Disallow: /private/
