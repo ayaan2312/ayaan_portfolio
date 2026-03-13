@@ -935,7 +935,8 @@ body {
   .hero-visual { width: 100%; display: flex; justify-content: center; perspective: 900px; }
   .monitor-shell { width: 440px; height: 330px; }
   .about-grid { grid-template-columns: 1fr; }
-  .about-cards { max-width: 540px; width: 100%; }
+  .about-cards { max-width: 540px; width: 100%; order: -1; }
+  .about-text { order: 0; }
 }
 @media (max-width: 768px) {
   .topbar { padding: 12px 20px; }
