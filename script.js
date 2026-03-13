@@ -765,48 +765,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 })();
 /* ============================================================
-   LOADING SCREEN WITH PROGRESS
-============================================================ */
-(function initLoadingScreen() {
-  const loadingScreen = document.getElementById('loading-screen');
-  const loadingFill = document.getElementById('loading-fill');
-
-  if (!loadingScreen) return;
-
-  const dismiss = () => {
-    loadingScreen.classList.add('hidden');
-    setTimeout(() => {
-      if (loadingScreen.parentNode) loadingScreen.remove();
-    }, 900);
-  };
-
-  // CSS transition handles the smooth fill — just set width at each milestone
-  const milestones = [
-    { width: '20%',  delay: 100  },
-    { width: '45%',  delay: 450  },
-    { width: '70%',  delay: 900  },
-    { width: '88%',  delay: 1300 },
-    { width: '100%', delay: 1800 },
-  ];
-
-  milestones.forEach(({ width, delay }) => {
-    setTimeout(() => {
-      if (loadingFill) loadingFill.style.width = width;
-    }, delay);
-  });
-
-  // Dismiss after fill completes
-  setTimeout(dismiss, 2200);
-
-  // Safety net — force dismiss if page load is slow
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      if (loadingScreen.parentNode) dismiss();
-    }, 3000);
-  });
-})();
-
-/* ============================================================
    SCROLL PROGRESS INDICATOR
 ============================================================ */
 (function initScrollProgress() {
