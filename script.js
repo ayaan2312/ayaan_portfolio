@@ -770,46 +770,37 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 (function initLoadingScreen() {
   const loadingScreen = document.getElementById('loading-screen');
   const loadingFill = document.getElementById('loading-fill');
-  
+
   if (!loadingScreen) return;
 
-  let progress = 0;
-
-  const updateProgress = (targetProgress) => {
-    const increment = (targetProgress - progress) / 20;
-    const interval = setInterval(() => {
-      progress += increment;
-      
-      if (progress >= targetProgress) {
-        progress = targetProgress;
-        clearInterval(interval);
-        
-        if (progress >= 100) {
-          setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            setTimeout(() => loadingScreen.remove(), 800);
-          }, 300);
-        }
-      }
-      
-      if (loadingFill) loadingFill.style.width = progress + '%';
-    }, 30);
+  const dismiss = () => {
+    loadingScreen.classList.add('hidden');
+    setTimeout(() => loadingScreen.remove(), 800);
   };
 
-  // Simulate realistic loading
-  setTimeout(() => updateProgress(20), 100);
-  setTimeout(() => updateProgress(40), 400);
-  setTimeout(() => updateProgress(60), 800);
-  setTimeout(() => updateProgress(85), 1200);
-  setTimeout(() => updateProgress(100), 1800);
+  // CSS transition handles the smooth fill — just set width at each milestone
+  const milestones = [
+    { width: '20%',  delay: 100  },
+    { width: '45%',  delay: 450  },
+    { width: '70%',  delay: 900  },
+    { width: '88%',  delay: 1300 },
+    { width: '100%', delay: 1800 },
+  ];
 
-  // Ensure loading screen is removed even if assets take long
+  milestones.forEach(({ width, delay }) => {
+    setTimeout(() => {
+      if (loadingFill) loadingFill.style.width = width;
+    }, delay);
+  });
+
+  // Dismiss after fill completes
+  setTimeout(dismiss, 2200);
+
+  // Safety net — force dismiss if page load is slow
   window.addEventListener('load', () => {
     setTimeout(() => {
-      if (!loadingScreen.classList.contains('hidden')) {
-        updateProgress(100);
-      }
-    }, 2500);
+      if (loadingScreen.parentNode) dismiss();
+    }, 3000);
   });
 })();
 
