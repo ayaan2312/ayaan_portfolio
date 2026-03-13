@@ -765,6 +765,90 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 })();
 /* ============================================================
+   LOADING SCREEN WITH PROGRESS
+============================================================ */
+(function initLoadingScreen() {
+  const loadingScreen = document.getElementById('loading-screen');
+  const loadingFill = document.getElementById('loading-fill');
+  const loadingPercent = document.getElementById('loading-percent');
+  const loadingText = document.getElementById('loading-text');
+  const loadingQuote = document.getElementById('loading-quote');
+  
+  if (!loadingScreen) return;
+
+  const quotes = [
+    '"Great software is built with passion and precision."',
+    '"Code is poetry written for machines."',
+    '"First, solve the problem. Then, write the code."',
+    '"Simplicity is the soul of efficiency." – Austin Freeman',
+    '"Any fool can write code that a computer can understand. Good programmers write code that humans can understand." – Martin Fowler'
+  ];
+
+  // Set random quote
+  if (loadingQuote) {
+    loadingQuote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+  }
+
+  let progress = 0;
+  const loadingMessages = [
+    'Initializing...',
+    'Loading assets...',
+    'Preparing interface...',
+    'Almost ready...',
+    'Welcome!'
+  ];
+
+  const updateProgress = (targetProgress) => {
+    const increment = (targetProgress - progress) / 20;
+    const interval = setInterval(() => {
+      progress += increment;
+      
+      if (progress >= targetProgress) {
+        progress = targetProgress;
+        clearInterval(interval);
+        
+        // Update message based on progress
+        if (progress >= 20 && progress < 40 && loadingText) {
+          loadingText.textContent = loadingMessages[1];
+        } else if (progress >= 40 && progress < 60 && loadingText) {
+          loadingText.textContent = loadingMessages[2];
+        } else if (progress >= 60 && progress < 90 && loadingText) {
+          loadingText.textContent = loadingMessages[3];
+        } else if (progress >= 90 && loadingText) {
+          loadingText.textContent = loadingMessages[4];
+        }
+        
+        if (progress >= 100) {
+          setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => loadingScreen.remove(), 800);
+          }, 300);
+        }
+      }
+      
+      if (loadingFill) loadingFill.style.width = progress + '%';
+      if (loadingPercent) loadingPercent.textContent = Math.floor(progress) + '%';
+    }, 30);
+  };
+
+  // Simulate realistic loading
+  setTimeout(() => updateProgress(20), 100);
+  setTimeout(() => updateProgress(40), 400);
+  setTimeout(() => updateProgress(60), 800);
+  setTimeout(() => updateProgress(85), 1200);
+  setTimeout(() => updateProgress(100), 1800);
+
+  // Ensure loading screen is removed even if assets take long
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (!loadingScreen.classList.contains('hidden')) {
+        updateProgress(100);
+      }
+    }, 2500);
+  });
+})();
+
+/* ============================================================
    SCROLL PROGRESS INDICATOR
 ============================================================ */
 (function initScrollProgress() {
