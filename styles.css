@@ -1466,12 +1466,15 @@ img.lazy-load.loaded {
 }
 
 /* GPU acceleration for smooth animations */
-.loading-screen,
 .scroll-progress,
 .loading-logo,
 .profile-photo,
 .faq-icon {
   will-change: transform;
+}
+
+.loading-screen {
+  will-change: opacity;
 }
 
 /* ═══════════════════════════════════════════════════════════
