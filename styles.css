@@ -935,8 +935,7 @@ body {
   .hero-visual { width: 100%; display: flex; justify-content: center; perspective: 900px; }
   .monitor-shell { width: 440px; height: 330px; }
   .about-grid { grid-template-columns: 1fr; }
-  .about-cards { max-width: 540px; width: 100%; order: -1; }
-  .about-text { order: 0; }
+  .about-cards { max-width: 540px; width: 100%; }
 }
 @media (max-width: 768px) {
   .topbar { padding: 12px 20px; }
@@ -970,6 +969,121 @@ body {
     padding-left:  max(110px, calc((100vw - 1380px) / 2));
     padding-right: max(110px, calc((100vw - 1380px) / 2));
   }
+}
+/* ═══════════════════════════════════════════════════════════
+   LOADING SCREEN
+═══════════════════════════════════════════════════════════ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #000000e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  padding: 40px;
+}
+
+.loading-logo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 40px;
+  animation: loadingPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px var(--primary-glow)) drop-shadow(0 0 60px var(--primary-glow));
+}
+
+@keyframes loadingPulse {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.15) rotate(180deg); 
+    opacity: 0.9; 
+  }
+}
+
+.loading-bar-container {
+  margin-bottom: 24px;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--sky), var(--primary));
+  background-size: 200% 100%;
+  width: 0%;
+  transition: width 0.3s ease-out;
+  box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
+  position: relative;
+  animation: shimmerFlow 2s linear infinite;
+}
+
+@keyframes shimmerFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.loading-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-percent {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary);
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 20px var(--primary-glow);
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  animation: loadingFade 2s ease-in-out infinite;
+}
+
+@keyframes loadingFade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.loading-quote {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--glass-border);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1281,6 +1395,25 @@ img.lazy-load.loaded {
    ENHANCED MOBILE RESPONSIVENESS
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  .loading-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .loading-percent {
+    font-size: 1.4rem;
+  }
+  
+  .loading-text {
+    font-size: 0.8rem;
+  }
+  
+  .loading-quote {
+    font-size: 0.85rem;
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+  
   .btn-download {
     padding: 12px 20px;
     font-size: 0.88rem;
@@ -1341,6 +1474,10 @@ img.lazy-load.loaded {
     height: 6px;
   }
   
+  .loading-content {
+    padding: 24px;
+  }
+  
   .photo-frame {
     width: 120px;
     height: 120px;
@@ -1378,6 +1515,8 @@ img.lazy-load.loaded {
     transition-duration: 0.01ms !important;
   }
   
+  .loading-logo,
+  .loading-fill,
   .ptr-spinner,
   .photo-glow {
     animation: none !important;
@@ -1385,7 +1524,9 @@ img.lazy-load.loaded {
 }
 
 /* GPU acceleration for smooth animations */
+.loading-screen,
 .scroll-progress,
+.loading-logo,
 .profile-photo,
 .faq-icon {
   will-change: transform;
@@ -1395,6 +1536,7 @@ img.lazy-load.loaded {
    PRINT STYLES
 ═══════════════════════════════════════════════════════════ */
 @media print {
+  .loading-screen,
   .scroll-progress,
   .pull-to-refresh,
   .topbar,
