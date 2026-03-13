@@ -993,43 +993,34 @@ body {
 
 .loading-content {
   text-align: center;
-  max-width: 500px;
-  width: 90%;
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 }
 
 .loading-logo {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 40px;
-  animation: loadingPulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 30px var(--primary-glow)) drop-shadow(0 0 60px var(--primary-glow));
+  width: 72px;
+  height: 72px;
+  animation: logoSpin 1.6s linear infinite;
+  filter: drop-shadow(0 0 18px var(--primary-glow));
 }
 
-@keyframes loadingPulse {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg); 
-    opacity: 1; 
-  }
-  50% { 
-    transform: scale(1.15) rotate(180deg); 
-    opacity: 0.9; 
-  }
+@keyframes logoSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 .loading-bar-container {
-  margin-bottom: 24px;
+  width: 180px;
 }
 
 .loading-bar {
   width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-pill);
   overflow: hidden;
-  margin-bottom: 16px;
-  position: relative;
 }
 
 .loading-fill {
@@ -1038,53 +1029,13 @@ body {
   background-size: 200% 100%;
   width: 0%;
   transition: width 0.3s ease-out;
-  box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary-glow);
-  position: relative;
-  animation: shimmerFlow 2s linear infinite;
+  box-shadow: 0 0 10px var(--primary-glow);
+  animation: shimmerFlow 1.8s linear infinite;
 }
 
 @keyframes shimmerFlow {
-  0% { background-position: 200% 0; }
+  0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
-}
-
-.loading-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.loading-percent {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--primary);
-  font-family: 'JetBrains Mono', monospace;
-  text-shadow: 0 0 20px var(--primary-glow);
-}
-
-.loading-text {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  animation: loadingFade 2s ease-in-out infinite;
-}
-
-@keyframes loadingFade {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-.loading-quote {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-style: italic;
-  opacity: 0.8;
-  margin-top: 32px;
-  padding-top: 32px;
-  border-top: 1px solid var(--glass-border);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1397,22 +1348,12 @@ img.lazy-load.loaded {
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .loading-logo {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
   
-  .loading-percent {
-    font-size: 1.4rem;
-  }
-  
-  .loading-text {
-    font-size: 0.8rem;
-  }
-  
-  .loading-quote {
-    font-size: 0.85rem;
-    margin-top: 24px;
-    padding-top: 24px;
+  .loading-bar-container {
+    width: 140px;
   }
   
   .btn-download {
