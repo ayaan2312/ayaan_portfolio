@@ -775,7 +775,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
   const dismiss = () => {
     loadingScreen.classList.add('hidden');
-    setTimeout(() => loadingScreen.remove(), 800);
+    setTimeout(() => {
+      if (loadingScreen.parentNode) loadingScreen.remove();
+    }, 900);
   };
 
   // CSS transition handles the smooth fill — just set width at each milestone
